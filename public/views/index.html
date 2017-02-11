@@ -7,13 +7,14 @@
     <script src="/vendor/angular.min.js" type="text/javascript"></script>
     <script src="/scripts/client-app.js" type="text/javascript"></script>
   </head>
-  <body ng-app="gameApp" onload="draw()">
+  <body ng-app="gameApp">
     <div id="gameBoard" ng-controller="GameController as gc">
-      <div ng-repeat="row in gc.currentGrid">
+      <div class="row" ng-repeat="row in gc.currentGrid">
         <div class="cell" ng-repeat="cell in row track by $index" ng-class="{'live':{{cell}}==1}"></div>
       </div>
       <div>
-        <button ng-click="gc.cycle()">NEXT</button>
+        <button ng-click="gc.start()">START</button>
+        <button ng-click="gc.stop()">STOP</button>
       </div>
     </div>
     <canvas id="canvas"></canvas>

@@ -1,5 +1,12 @@
 #gameBoard {
-  display: inline-flex;
+
+  width: 100%;
+
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }
 .cell {
   width: 15px;
