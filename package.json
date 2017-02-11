@@ -1,0 +1,22 @@
+{
+  "name": "game-of-life",
+  "version": "1.0.0",
+  "description": "Javascript Conway's Game of Life",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caseyhyde/game-of-life.git"
+  },
+  "author": "Casey Hyde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caseyhyde/game-of-life/issues"
+  },
+  "homepage": "https://github.com/caseyhyde/game-of-life#readme",
+  "dependencies": {
+    "express": "^4.14.1"
+  }
+}
