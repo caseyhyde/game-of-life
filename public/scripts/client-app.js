@@ -9,7 +9,7 @@
 // j = collumn number
 var gameApp = angular.module('gameApp', []);
 
-gameApp.controller('GameController', ['$scope', '$timeout', function($scope, $timeout) {
+gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($scope, $timeout, $http) {
   const self = this;
   self.currentGrid = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -76,6 +76,20 @@ gameApp.controller('GameController', ['$scope', '$timeout', function($scope, $ti
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   ];
   var temp = [];
+
+  self.testApi = function() {
+    $http({
+      method: 'GET',
+      url: '/random',
+      headers: {
+        test: "test"
+      }
+    }).then(function(res) {
+      console.log("res: ", res);
+    }).catch(function(err) {
+      console.log("err: ", err);
+    })
+  }
 
   self.start = function() {
     self.run = true;
@@ -284,7 +298,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', function($scope, $ti
       nextGrid = temp;
       console.timeEnd('cycle');
       if(!next) {
-        $timeout(cycle, 50);
+        $timeout(cycle, 75);
       }
     }
   }//End cycle fxn
