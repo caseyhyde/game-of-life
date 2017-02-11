@@ -4,7 +4,8 @@
   "description": "Javascript Conway's Game of Life",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon server/app.js"
+    "test": "nodemon server/app.js",
+    "start": "node server/app.js"
   },
   "repository": {
     "type": "git",
