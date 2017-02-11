@@ -5,12 +5,6 @@
 3) Any live cell with more than three live neighbours dies, as if by overpopulation.
 4) Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 **************************************************************************************************/
-/************************************************************************************************
-                                          STEPS:
-1) loop row
-    1a) check each neighboring cell, count total live
-    ab) apply rules based on live count
-**************************************************************************************************/
 // i = row number
 // j = collumn number
 var gameApp = angular.module('gameApp', []);
