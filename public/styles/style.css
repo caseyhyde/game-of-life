@@ -17,3 +17,11 @@
 .live {
   background-color: black
 }
+
+.isAlive1 {
+  background-color: black;
+}
+
+.isAlive0 {
+  background-color: white;
+}

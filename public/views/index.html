@@ -10,11 +10,13 @@
   <body ng-app="gameApp">
     <div id="gameBoard" ng-controller="GameController as gc">
       <div class="row" ng-repeat="row in gc.currentGrid">
-        <div class="cell" ng-repeat="cell in row track by $index" ng-class="{'live':{{cell}}==1}"></div>
+        <div class="cell isAlive{{cell}}" ng-repeat="cell in row track by $index" ng-click="gc.toggleCell($parent.$index, $index)"></div>
       </div>
       <div>
         <button ng-click="gc.start()">START</button>
+        <button ng-click="gc.next()">NEXT</button>
         <button ng-click="gc.stop()">STOP</button>
+        <button ng-click="gc.reset()">RESET</button>
       </div>
     </div>
     <canvas id="canvas"></canvas>
