@@ -1,0 +1,12 @@
+#gameBoard {
+  display: inline-flex;
+}
+.cell {
+  width: 15px;
+  height: 15px;
+  /*height: 5px;*/
+  border: .25px solid black;
+}
+.live {
+  background-color: black
+}
