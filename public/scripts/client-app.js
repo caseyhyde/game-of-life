@@ -1,4 +1,3 @@
-
 /************************************************************************************************
                                          RULES:
 1) Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
@@ -14,207 +13,209 @@
 **************************************************************************************************/
 // i = row number
 // j = collumn number
+var gameApp = angular.module('gameApp', []);
 
-function cycle() {
-  for (var i = 0; i < currentGrid.length; i++) {
-    for (var j = 0; j < currentGrid[i].length; j++) {
-      //if top row:
-      if (i = 0) {
-        //if leftmost collumn:
-        if (j = 0) {
-          let liveCount = currentGrid[i][j + 1] + currentGrid[i + 1][j] + currentGrid[i + 1][j + 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
+gameApp.controller('GameController', ['$scope', function($scope) {
+  const self = this;
+  self.currentGrid = [
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,1,1,1,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+  ];
+  var nextGrid = [
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+  ];
+  self.cycle = function() {
+    for (var i = 0; i < self.currentGrid.length; i++) {
+      for (var j = 0; j < self.currentGrid[i].length; j++) {
+        //if top row:
+        if (i == 0) {
+          console.log("i = 0");
+          //if leftmost collumn:
+          if (j == 0) {
+            var liveCount = self.currentGrid[i][j + 1] + self.currentGrid[i + 1][j] + self.currentGrid[i + 1][j + 1];
+            console.log("liveCount top row 1", liveCount);
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
+          }
+          //if rightmost collumn:
+          else if (j == self.currentGrid[i].length - 1) {
+            var liveCount = self.currentGrid[i][j - 1] + self.currentGrid[i + 1][j] + self.currentGrid[i + 1][j - 1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
+          }
+          //if any other collumn:
+          else {
+            var liveCount = self.currentGrid[i][j -1] + self.currentGrid[i][j + 1] + self.currentGrid[i + 1][j - 1] + self.currentGrid[i + 1][j] + self.currentGrid[i + 1][j + 1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
           }
         }
-        //if rightmost collumn:
-        else if (j = currentGrid[i].length - 1) {
-          let liveCount = currentGrid[i][j - 1] + currentGrid[i + 1][j] + currentGrid[i + 1][j - 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
+        //if bottom row:
+        else if (i == self.currentGrid.length - 1) {
+          //if leftmost collumn:
+          if (j == 0) {
+            var liveCount = self.currentGrid[i - 1][j] + self.currentGrid[i - 1][j +1] + self.currentGrid[i][j +1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
+          }
+          //if rightmost collumn:
+          else if (j == self.currentGrid[i].length - 1) {
+            var liveCount = self.currentGrid[i -1][j] + self.currentGrid[i - 1][j -1] + self.currentGrid[i][j - 1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
+          }
+          //if any other collumn:
+          else {
+            var liveCount = self.currentGrid[i][j - 1] + self.currentGrid[i - 1][j - 1] + self.currentGrid[i - 1][j] + self.currentGrid[i - 1][j + 1] + self.currentGrid[i][j + 1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
           }
         }
-        //if any other collumn:
+        //if any other row:
         else {
-          let liveCount = currentGrid[i][j -1] + currentGrid[i][j + 1] + currentGrid[i + 1][j - 1] + currentGrid[i + 1][j] + currentGrid[i + 1][j + 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
+          //if leftmost collumn:
+          if (j == 0) {
+            var liveCount = self.currentGrid[i  - 1][j] + self.currentGrid[i - 1][j + 1] + self.currentGrid[i][j + 1] + self.currentGrid[i + 1][j + 1] + self.currentGrid[i + 1][j];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
           }
-        }
-      }
-      //if bottom row:
-      else if (i = currentGrid.length - 1) {
-        //if leftmost collumn:
-        if (j = 0) {
-          let liveCount = currentGrid[i - 1][j] + currentGrid[i - 1][j +1] + currentGrid[i][j +1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
+          //if rightmost collumn:
+          else if (j == self.currentGrid[i].length - 1) {
+            var liveCount = self.currentGrid[i - 1][j] + self.currentGrid[i - 1][j - 1] + self.currentGrid[i][j - 1] + self.currentGrid[i + 1][j - 1] + self.currentGrid[i + 1][j];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
           }
-        }
-        //if rightmost collumn:
-        else if (j = currentGrid[i].length - 1) {
-          let liveCount = currentGrid[i -1][j] + currentGrid[i - 1][j -1] + currentGrid[i][j - 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
-          }
-        }
-        //if any other collumn:
-        else {
-          let liveCount = currentGrid[i][j - 1] + currentGrid[i - 1][j - 1] + currentGrid[i - 1][j] + currentGrid[i - 1][j + 1] + currentGrid[i][j + 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
-          }
-        }
-      }
-      //if any other row:
-      else {
-        //if leftmost collumn:
-        if (j = 0) {
-          let liveCount = currentGrid[i  - 1][j] + currentGrid[i - 1][j + 1] + currentGrid[i][j + 1] + currentGrid[i + 1][j + 1] + currentGrid[i + 1][j];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
-          }
-        }
-        //if rightmost collumn:
-        else if (j = currentGrid[i].length - 1) {
-          let liveCount = currentGrid[i - 1][j] + currentGrid[i - 1][j - 1] + currentGrid[i][j - 1] + currentGrid[i + 1][j - 1] + currentGrid[i + 1][j];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
-          }
-        }
-        //if any other collumn:
-        else {
-          let liveCount = currentGrid[i - 1][j -1] + currentGrid[i - 1][j] + currentGrid[i - 1][j + 1] + currentGrid[i][j + 1] + currentGrid[i + 1][j + 1] + currentGrid[i + 1][j] + currentGrid[i + 1][j - 1] + currentGrid[i][j - 1];
-          switch (liveCount) {
-            case 2:
-              //if already alive, stays alive... If dead, stays dead:
-              nextGrid[i][j] = currentGrid[i][j];
-              break;
-            case 3:
-              //if dead, turns alive... If alive, stays alive:
-              nextGrid[i][j] = 1;
-              break;
-            default:
-              //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
-              nextGrid[i][j] = 0;
+          //if any other collumn:
+          else {
+            var liveCount = self.currentGrid[i - 1][j -1] + self.currentGrid[i - 1][j] + self.currentGrid[i - 1][j + 1] + self.currentGrid[i][j + 1] + self.currentGrid[i + 1][j + 1] + self.currentGrid[i + 1][j] + self.currentGrid[i + 1][j - 1] + self.currentGrid[i][j - 1];
+            switch (liveCount) {
+              case 2:
+                //if already alive, stays alive... If dead, stays dead:
+                nextGrid[i][j] = self.currentGrid[i][j];
+                break;
+              case 3:
+                //if dead, turns alive... If alive, stays alive:
+                nextGrid[i][j] = 1;
+                break;
+              default:
+                //if < 2 || > 3 and alive, dies... If < 2 || > 3 and dead, stays dead:
+                nextGrid[i][j] = 0;
+            }
           }
         }
       }
     }
-  }
-  currentGrid = nextGrid;
-  console.log(currentGrid);
-  cycle();
-}
 
-var currentGrid = [
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-];
-
-var nextGrid = [
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0],
-];
-
-cycle();
-
+    var temp = self.currentGrid;
+    self.currentGrid = nextGrid;
+    nextGrid = temp;
+  }//End cycle fxn
+}]);//End controller
 
 //DRAWING ON A CANVAS ELEMENT EXAMPLE:
 // function draw() {

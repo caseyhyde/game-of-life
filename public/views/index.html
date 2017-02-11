@@ -3,10 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Conway's Game of Life</title>
+    <script src="/vendor/angular.min.js" type="text/javascript"></script>
     <script src="/scripts/client-app.js" type="text/javascript"></script>
   </head>
-  <body onload="draw()">
-    <h1>HELLO WORLD, BELOW IS A CANVAS ELEMENT</h1>
-    <canvas id="canvas" width="300" height="300"></canvas>
+  <body ng-app="gameApp">
+    <div ng-controller="GameController as gc">
+      <div ng-repeat="row in gc.currentGrid">
+        <span ng-repeat="cell in row track by $index">{{cell}}</span>
+      </div>
+      <div>
+        <button ng-click="gc.cycle()">NEXT</button>
+      </div>
+    </div>
   </body>
 </html>
