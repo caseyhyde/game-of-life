@@ -1,4 +1,3 @@
-var request = require('request');
 var https = require('https');
 var http = require('http');
 var express = require('express');
@@ -26,13 +25,11 @@ var options = {
 
 router.get('/', function(req, res) {
   console.log('random.api get route hit');
-  https.request(options, function(error, response) {
-    if(error) {
-      console.log(error);
-    } else {
-      console.log(response);
-    }
-  });
+  http.request(options, function(a, b, c) {
+    console.log("a: ", a);
+    console.log("b: ", b);
+    console.log("c: ", c);
+  }).end();
 });
 
 module.exports = router;
