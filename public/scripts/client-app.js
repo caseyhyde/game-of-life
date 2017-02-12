@@ -118,10 +118,17 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
 
   var temp = [];
   self.rate = 250;
+  self.rain = false;
   var generation = 0;
   var dropNumber = 0;
   var gridWidth = self.currentGrid[0].length;
   var gridHeight = self.currentGrid.length;
+  var randomNumbersArray = [];
+  var randomCooridinatesArray = [];
+  var randomCalled = false;
+  var dropCounter = 0;
+  var currentDrop = 0;
+
   // var dropSpots = getRandoms();//this is now an array of 25 random integers between 0 and the # of cells in the grid
 
   function getRandoms() {
@@ -132,10 +139,22 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
         test: "test"
       }
     }).then(function(res) {
-      return res.data.data;
+      randomArray = res.data.data;
+      randomCoordinateBuilder(randomArray);
     }).catch(function(err) {
       console.log("err: ", err);
     })
+  }
+
+  function randomCoordinateBuilder(array) {
+    for(var i = 0; i < array.length; i ++) {
+      let coordinateObject = {
+        y: Math.floor(array[i] / gridWidth),
+        x: array[i] % gridWidth
+      }
+      randomCooridinatesArray.push(coordinateObject);
+      console.log(randomCooridinatesArray);
+    }
   }
 
   self.start = function() {
@@ -171,9 +190,21 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
     } else self.currentGrid[row][cell] = 1;
   }
 
-  self.toggleGrid = function() {
-    self.showGrid = !self.showGrid;
+  self.addThing = function() {
+    console.log("Clicked");
+    rain("acorn", {x: 49, y: 35});
   }
+
+  self.methuselahRain = function() {
+    if(!randomCalled) {
+      getRandoms();
+      randomCalled = true;
+    }
+    self.rain = !self.rain;
+    console.log(self.rain);
+  }
+
+
 
   //drops a given shape with it's center at location
   function rain(shape, location) {
@@ -187,7 +218,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
               //if top row:
               case (location.y - 2):
                 //check if out of bounds:
-                if(i < 0 || i >= nextGrid.length || j < 0 || j > nextGrid[0].length) {
+                if(i < 0 || i >= nextGrid.length || j < 0 || j >= nextGrid[0].length) {
                   break;
                 }
                 else {
@@ -197,7 +228,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
               //if second row:
               case (location.y - 1):
                 //check if out of bounds:
-                if(i < 0 || i >= nextGrid.length || j < 0 || j > nextGrid[0].length) {
+                if(i < 0 || i >= nextGrid.length || j < 0 || j >= nextGrid[0].length) {
                   break;
                 }
                 else if(j <= location.x -1 || j == location.x + 2) {
@@ -211,7 +242,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
               //if third row:
               case (location.y):
                 //check if out of bounds:
-                if(i < 0 || i >= nextGrid.length || j < 0 || j > nextGrid[0].length) {
+                if(i < 0 || i >= nextGrid.length || j < 0 || j >= nextGrid[0].length) {
                   break;
                 }
                 else if(j == location.x - 2 || j > location.x) {
@@ -225,7 +256,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
               //if fourth row:
               case (location.y + 1):
                 //check if out of bounds:
-                if(i < 0 || i >= nextGrid.length || j < 0 || j > nextGrid[0].length) {
+                if(i < 0 || i >= nextGrid.length || j < 0 || j >= nextGrid[0].length) {
                   break;
                 }
                 else if(j < location.x || j > location.x) {
@@ -239,7 +270,7 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
               //if fifth row:
               case (location.y + 2):
                 //check if out of bounds:
-                if(i < 0 || i >= nextGrid.length || j < 0 || j > nextGrid[0].length) {
+                if(i < 0 || i >= nextGrid.length || j < 0 || j >= nextGrid[0].length) {
                   break;
                 }
                 else {
@@ -422,8 +453,21 @@ gameApp.controller('GameController', ['$scope', '$timeout', '$http', function($s
           }
         }
       }
-      if(generation % 30 == 0) {
-        rain("acorn", {x: 24, y:14 });
+      if(self.rain) {
+        if(generation % 30 == 0) {
+          if(dropCounter < 10) {
+            currentDrop = dropCounter;
+            console.log("CurrentDrop: ", currentDrop);
+            rain("acorn", randomCooridinatesArray[currentDrop]);
+            dropCounter ++;
+          }
+          else {
+            currentDrop = dropCounter % randomCooridinatesArray.length;
+            console.log("CurrentDrop: ", currentDrop);
+            rain("acorn", randomCooridinatesArray[currentDrop]);
+            dropCounter ++;
+          }
+        }
       }
       temp = self.currentGrid;
       self.currentGrid = nextGrid;

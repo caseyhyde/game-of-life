@@ -17,7 +17,10 @@
         <button ng-click="gc.next()">NEXT</button>
         <button ng-click="gc.pause()">PAUSE</button>
         <button ng-click="gc.reset()">RESET</button>
+        <button ng-click="gc.methuselahRain()">TOGGLE METHUSELAH RAIN</button>
       </div>
+      <h3 ng-if="gc.rain">Rain: ON</h3>
+      <h3 ng-if="!gc.rain">Rain: OFF<h3>
       <input ng-model="gc.rate"/>
     </div>
     <canvas id="canvas"></canvas>
