@@ -6,7 +6,7 @@
 1. `npm install` </br>
 2. `npm test` </br>
 4. Point you browser to [http://localhost:3000](http://localhost:3000)</br>
-  * You can also visit it live [here](https://mysterious-stream-19493.herokuapp.com/)
+  * You can also visit it live <a href="https://mysterious-stream-19493.herokuapp.com/" target='_blank'>here</a>.
 
 ### Things you can do:
 1. Click on cells to toggle them on/off (alive/dead).
@@ -16,10 +16,10 @@
 4. Click <button>Toggle Methuselah Rain</button> to, well, toggle Methuselah rain on and off
    > "A methuselah is a pattern that takes a large number of generations in order to stabilize (known as its lifespan) and becomes much larger than its initial configuration at some point during its evolution. There is no consensus on the exact definition." [**-LifeWiki**](http://conwaylife.com/wiki/Main_Page)</br>![R-Pentomino](http://conwaylife.com/w/images/6/6e/Rpentomino.png) R-Pentomino Methuselah used in rain.
 
-  * Methuselah rain is some crazy sh*t I came up with, where the game randomly drops the R-Pentomino Methuselah onto the grid every 30 generations. <b>Here's how it works:</b>
+  * Methuselah Rain is some crazy sh*t I came up with, where the game randomly drops the R-Pentomino Methuselah onto the grid every 30 generations. <b>Here's how it works:</b>
     1. Methuselah Rain initial toggle "on".
     2. Client makes GET request to server.
-    3. Server make POST request to the [Random.org](https://random.org) [API](https://api.random.org/json-rpc/1/)
+    3. Server makes POST request to the [Random.org](https://random.org) [API](https://api.random.org/json-rpc/1/)
     4. Random.org API responds with an array of 10 random integers between 0 and the number of cells on the game board (2500);
     5. Server sends this array to the client, where each number is given an x and y coordinate, corresponding to it's place on the Game board.
     6. Every 30 generations, the `rain()` function draws a 5x5 grid containing a R-Pentomino Methuselah onto the Game board with it's center cell at the x and y coordinates out of the random number array. After 10 drops, the game will have cycled through all random coordinates and start from the beginning of the random coordinates array.<br><br>
