@@ -6,7 +6,7 @@
 1. `npm install` </br>
 2. `npm test` </br>
 4. Point you browser to [http://localhost:3000](http://localhost:3000)</br>
-  * You can also visit it live <a href="https://mysterious-stream-19493.herokuapp.com/" target='_blank'>here</a>.
+  * You can also visit it live [here](https://mysterious-stream-19493.herokuapp.com/).
 
 ### Things you can do:
 1. Click on cells to toggle them on/off (alive/dead).
