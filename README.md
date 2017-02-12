@@ -26,6 +26,6 @@
     6. Every 30 generations, the `rain()` function draws a 5x5 grid containing a R-Pentomino Methuselah onto the Game board with it's center cell at the x and y coordinates out of the random number array. After 10 drops, the game will have cycled through all random coordinates and start from the beginning of the random coordinates array.<br><br>
 5. Click <button>PAUSE</button> to, well, pause the game. click <button>START</button> again to continue.
 6. While paused, you can click <button>NEXT</button> to advance the game one generation.
-7. Click <button>RESET</button> to, well, reset the game back to a black grid.
+7. Click <button>RESET</button> to, well, reset the game back to a blank grid.
 
 <br><br>*You're good people. Thanks for checking this out*
