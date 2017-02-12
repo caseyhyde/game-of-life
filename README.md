@@ -1,5 +1,5 @@
 # AngularJS Conway's Game of Life
-# Now with 1,000,000x more [Methuselah](http://conwaylife.com/wiki/Methusaleh) Rain!
+### Now with 1,000,000x more [Methuselah](http://conwaylife.com/wiki/Methusaleh) Rain!
 
 
 
