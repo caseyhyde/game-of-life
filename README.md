@@ -12,8 +12,9 @@
 1. Click on cells to toggle them on/off (alive/dead).
 2. Click <button>START</button> to start the game.
 3. Change the generation interval by entering a new number in the <input placeholder="milliseconds"/>input field.
-   > Currently, The game uses Angular to render the game grid to the DOM. Compared to using a canvas element, this method is relatively slow. As such, 150ms between generations is about the fastest the game can run.
-4. Click <button>Toggle Methuselah Rain</button> to, well, toggle Methuselah rain on and off
+     > Currently, The game uses Angular to render the game grid to the DOM. Compared to using a canvas element, this method is relatively slow. As such, 150ms between generations is about the fastest the game can run.
+
+4. Click <button>Toggle Methuselah Rain</button> to, well, toggle Methuselah rain on and off.
    > "A methuselah is a pattern that takes a large number of generations in order to stabilize (known as its lifespan) and becomes much larger than its initial configuration at some point during its evolution. There is no consensus on the exact definition." [**-LifeWiki**](http://conwaylife.com/wiki/Main_Page)</br>![R-Pentomino](http://conwaylife.com/w/images/6/6e/Rpentomino.png) R-Pentomino Methuselah used in rain.
 
   * Methuselah Rain is some crazy sh*t I came up with, where the game randomly drops the R-Pentomino Methuselah onto the grid every 30 generations. <b>Here's how it works:</b>
